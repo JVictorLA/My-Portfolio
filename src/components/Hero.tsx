@@ -1,7 +1,10 @@
+'use client';
+
 import { useEffect, useRef, Suspense } from 'react';
 import gsap from 'gsap';
-import Lanyard from './Lanyard';
+import TextType from './TextType';
 import ErrorBoundary from './ErrorBoundary';
+import HeroScene3D from './HeroScene3D';
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -13,14 +16,12 @@ const Hero = () => {
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.2 });
 
-    // Headline animation
     tl.fromTo(
       headlineRef.current,
       { opacity: 0, y: 60, filter: 'blur(10px)' },
       { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' }
     );
 
-    // Subtitle animation
     tl.fromTo(
       subtitleRef.current,
       { opacity: 0, y: 40 },
@@ -28,7 +29,6 @@ const Hero = () => {
       '-=0.5'
     );
 
-    // CTA animation
     tl.fromTo(
       ctaRef.current,
       { opacity: 0, scale: 0.9 },
@@ -36,23 +36,12 @@ const Hero = () => {
       '-=0.3'
     );
 
-    // Spline fade in
     tl.fromTo(
       splineRef.current,
-      { opacity: 0, x: 100 },
-      { opacity: 1, x: 0, duration: 1, ease: 'power3.out' },
-      '-=0.8'
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
+      '-=0.6'
     );
-
-    // Floating orbs animation
-    gsap.to('.hero-orb', {
-      y: -30,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut',
-      stagger: 0.5,
-    });
 
     return () => {
       tl.kill();
@@ -60,10 +49,7 @@ const Hero = () => {
   }, []);
 
   const scrollToContact = () => {
-    const element = document.querySelector('#contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -76,27 +62,40 @@ const Hero = () => {
       <div className="absolute inset-0 grid-pattern opacity-20" />
       <div className="light-beam" />
 
-      {/* Floating orbs */}
-      <div className="hero-orb glow-orb w-96 h-96 -top-40 -left-40" />
-      <div className="hero-orb glow-orb w-64 h-64 top-1/3 left-1/4 opacity-50" />
-      <div className="hero-orb glow-orb w-48 h-48 bottom-20 left-10 opacity-30" />
-
       <div className="container mx-auto px-6 pt-24 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
+
+          {/* LEFT */}
           <div className="text-center lg:text-left">
             <p className="text-primary text-sm font-light tracking-[0.3em] uppercase mb-4">
               Welcome to my portfolio
             </p>
-            <h1
-              ref={headlineRef}
-              className="text-5xl md:text-7xl lg:text-8xl font-extralight leading-tight mb-6"
-            >
-              Hi, I'm{' '}
-              <span className="text-gradient font-medium">Milad</span>
-              <br />
-              <span className="text-muted-foreground">Web Developer</span>
-            </h1>
+
+          <h1
+  ref={headlineRef}
+  className="text-5xl md:text-7xl lg:text-8xl font-extralight leading-tight mb-6"
+>
+  Olá, Me chamo{' '}
+  <span className="text-gradient font-medium whitespace-nowrap">
+    João Victor
+  </span>
+  <br />
+
+  <span className="block text-muted-foreground mt-2">
+    <TextType
+                  text={[
+                    'Web Developer',
+                    'Frontend Developer',
+                    'UI Engineer',
+                    'React Specialist',
+                  ]}
+                  typingSpeed={75}
+                  pauseDuration={1500}
+                  showCursor={true}
+                  cursorCharacter="|" variableSpeed={undefined} onSentenceComplete={undefined}    />
+  </span>
+</h1>
+
             <p
               ref={subtitleRef}
               className="text-muted-foreground text-lg md:text-xl font-light max-w-lg mx-auto lg:mx-0 mb-8"
@@ -104,6 +103,7 @@ const Hero = () => {
               Crafting digital experiences that inspire and engage through
               innovative design and cutting-edge technology.
             </p>
+
             <button
               ref={ctaRef}
               onClick={scrollToContact}
@@ -113,25 +113,24 @@ const Hero = () => {
             </button>
           </div>
 
-          {/* Right - Lanyard 3D */}
+          {/* RIGHT – 3D */}
           <div
             ref={splineRef}
-            className="relative h-[400px] md:h-[500px] lg:h-[600px]"
+            className="
+              relative w-full
+              h-[240px]
+              sm:h-[300px]
+              lg:h-[520px]
+              mt-16 lg:mt-0
+            "
           >
             <ErrorBoundary>
-              <Suspense
-                fallback={
-                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                    Loading...
-                  </div>
-                }
-              >
-                <Lanyard position={[0, 0, 24]} gravity={[0, -40, 0]} />
+              <Suspense fallback={null}>
+                <HeroScene3D />
               </Suspense>
             </ErrorBoundary>
-            {/* Gradient overlay for blending */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-l from-transparent via-transparent to-background/50 lg:to-background" />
           </div>
+
         </div>
       </div>
 
