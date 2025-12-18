@@ -55,8 +55,8 @@ const Navbar = () => {
         <div className="container mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <a href="#home" className="text-2xl font-light tracking-wider">
-            <span className="text-gradient font-semibold">M</span>
-            <span className="text-foreground">C</span>
+            <span className="text-gradient font-semibold">J</span>
+            <span className="text-foreground">V</span>
           </a>
 
           {/* Desktop nav */}

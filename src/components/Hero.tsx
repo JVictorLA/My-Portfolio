@@ -68,20 +68,25 @@ const Hero = () => {
           {/* LEFT */}
           <div className="text-center lg:text-left">
             <p className="text-primary text-sm font-light tracking-[0.3em] uppercase mb-4">
-              Welcome to my portfolio
+              Bem vindo ao meu portifólio
             </p>
 
           <h1
   ref={headlineRef}
-  className="text-5xl md:text-7xl lg:text-8xl font-extralight leading-tight mb-6"
+  className="mb-6"
 >
-  Olá, Me chamo{' '}
-  <span className="text-gradient font-medium whitespace-nowrap">
+  {/* Linha pequena */}
+  <span className="block text-base md:text-lg lg:text-7xl font-light text-muted-foreground whitespace-nowrap">
+    Olá, me chamo
+  </span>
+
+  {/* Nome grande */}
+  <span className="block text-5xl md:text-7xl lg:text-8xl font-medium leading-tight text-gradient whitespace-nowrap">
     João Victor
   </span>
-  <br />
 
-  <span className="block text-muted-foreground mt-2">
+  {/* Profissão com typing */}
+  <span className="block mt-4 text-muted-foreground text-xl md:text-2xl">
     <TextType
                   text={[
                     'Web Developer',
@@ -91,7 +96,7 @@ const Hero = () => {
                   ]}
                   typingSpeed={75}
                   pauseDuration={1500}
-                  showCursor={true}
+                  showCursor
                   cursorCharacter="|" variableSpeed={undefined} onSentenceComplete={undefined}    />
   </span>
 </h1>
@@ -100,8 +105,7 @@ const Hero = () => {
               ref={subtitleRef}
               className="text-muted-foreground text-lg md:text-xl font-light max-w-lg mx-auto lg:mx-0 mb-8"
             >
-              Crafting digital experiences that inspire and engage through
-              innovative design and cutting-edge technology.
+              Criando experiências digitais que inspiram e envolvem por meio de design inovador e tecnologia de ponta.
             </p>
 
             <button

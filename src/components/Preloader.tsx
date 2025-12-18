@@ -70,7 +70,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
       {/* Logo */}
       <div ref={logoRef} className="relative z-10 text-center">
         <h1 className="text-6xl md:text-8xl font-extralight tracking-widest text-foreground">
-          <span className="text-gradient font-medium">M</span>ilad
+          <span className="text-gradient font-medium">João</span>Victor
         </h1>
         <p className="text-muted-foreground text-sm tracking-[0.3em] mt-2 uppercase">
           Web Developer

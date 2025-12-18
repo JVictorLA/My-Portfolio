@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  FileHtml, 
-  FileCss, 
-  FileJs, 
-  Atom, 
+import {
+  FileHtml,
+  FileCss,
+  FileJs,
+  Atom,
   Wind,
-  Lightning
+  Lightning,
 } from '@phosphor-icons/react';
 import profileImage from '@/assets/profile.png';
 
@@ -63,7 +63,7 @@ const About = () => {
         }
       );
 
-      // Skills stagger animation
+      // Skills animation
       gsap.fromTo(
         '.skill-item',
         { opacity: 0, y: 30 },
@@ -101,11 +101,10 @@ const About = () => {
               <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-white/10 transition-all duration-500 group-hover:scale-105 group-hover:rotate-3">
                 <img
                   src={profileImage}
-                  alt="Milad - Web Developer"
+                  alt="João Victor Almeida - Frontend Developer"
                   className="w-full h-full object-cover object-top"
                 />
               </div>
-              {/* Decorative ring */}
               <div className="absolute inset-0 rounded-full border border-primary/30 scale-110 animate-pulse-glow opacity-50" />
             </div>
           </div>
@@ -113,23 +112,26 @@ const About = () => {
           {/* Content */}
           <div ref={contentRef}>
             <p className="text-primary text-sm font-light tracking-[0.3em] uppercase mb-4">
-              About Me
+              Sobre Mim
             </p>
+
+            {/* TITLE */}
             <h2 className="section-title mb-6">
-              Hi There, I'm <span className="text-gradient">Milad</span>
+              <span className="block text-lg font-bold lg:text-4xl text-muted-foreground">
+                Olá, me chamo
+              </span>
+
+              <span className="block text-4xl md:text-5xl text-gradient font-semibold mt-2 whitespace-nowrap">
+                João Victor Almeida
+              </span>
             </h2>
+
             <p className="text-muted-foreground text-lg font-light leading-relaxed mb-8">
-              I specialize in frontend development, crafting dynamic, visually
-              engaging, and highly responsive websites that provide seamless
-              user experiences. With a strong foundation in HTML, CSS, and
-              JavaScript, I focus on building modern web interfaces that are not
-              only aesthetically appealing but also optimized for performance
-              and accessibility.
+              Sou especialista em desenvolvimento front-end, criando websites dinâmicos, visualmente atraentes e altamente responsivos, focados em proporcionar experiências de usuário intuitivas e eficientes. Possuo formação técnica em Informática pelo IFMS (Instituto Federal de Mato Grosso do Sul), integrada ao Ensino Médio, o que me proporcionou uma base sólida em tecnologia.
             </p>
+
             <p className="text-muted-foreground text-lg font-light leading-relaxed mb-10">
-              My expertise extends to advanced frameworks like React and
-              Tailwind CSS, enabling me to create interactive, modern, and
-              efficient applications.
+            Com amplo domínio de HTML, CSS e JavaScript, e experiência prática com Vue.js, React e C++, atuo na construção de interfaces web modernas e aplicações eficientes, priorizando não apenas a estética, mas também desempenho, acessibilidade e usabilidade, sempre alinhado às melhores práticas do desenvolvimento web.
             </p>
 
             {/* Skills */}
@@ -137,6 +139,7 @@ const About = () => {
               <h3 className="text-foreground text-lg font-medium mb-6">
                 Tech Stack
               </h3>
+
               <div className="skills-grid grid grid-cols-3 sm:grid-cols-6 gap-4">
                 {skills.map((skill) => (
                   <div
