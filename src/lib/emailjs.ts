@@ -1,4 +1,4 @@
-import initialize from '@emailjs/browser';
+import { init } from '@emailjs/browser';
 
 // Initialize EmailJS with public key
-initialize('EexRohomsZGaWodXT');
+init('EexRohomsZGaWodXT');
