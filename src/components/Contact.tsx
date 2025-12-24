@@ -121,10 +121,10 @@ const Contact = () => {
         {/* Title */}
         <div className="text-center mb-16">
           <p className="text-primary text-sm font-light tracking-[0.3em] uppercase mb-4">
-            Get in Touch
+            Entre em Contato
           </p>
           <h2 className="section-title">
-            Let's <span className="text-gradient">Connect</span>
+            Envie sua <span className="text-gradient">Mensagem</span>
           </h2>
         </div>
 
@@ -132,11 +132,11 @@ const Contact = () => {
           {/* Contact Info */}
           <div ref={infoRef}>
             <h3 className="text-2xl font-medium text-foreground mb-6">
-              Contact Information
+              Informações de Contato
             </h3>
             <p className="text-muted-foreground font-light mb-8 leading-relaxed">
-              Have a project in mind or just want to say hello? Drop me a
-              message and I'll get back to you as soon as possible.
+              Tem um projeto em mente ou só quer dizer olá? Me envie uma mensagem e eu responderei o mais breve possível.
+              mensagem e entrarei em contato com você o mais breve possível.
             </p>
 
             {/* Contact details */}
@@ -147,7 +147,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
-                  <p className="text-foreground">hello@miladicode.com</p>
+                  <p className="text-foreground">almeidalima.jvictor@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -156,7 +156,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Phone</p>
-                  <p className="text-foreground">+1 (234) 567-890</p>
+                  <p className="text-foreground">+55 (67) 9 8449-2124</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -165,7 +165,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Location</p>
-                  <p className="text-foreground">San Francisco, CA</p>
+                  <p className="text-foreground">Cuiabá, MT</p>
                 </div>
               </div>
             </div>
@@ -219,7 +219,7 @@ const Contact = () => {
             <div className="space-y-6">
               <div className="form-field">
                 <label htmlFor="name" className="text-sm text-muted-foreground block mb-2">
-                  Your Name
+                  Seu nome
                 </label>
                 <input
                   type="text"
@@ -232,7 +232,7 @@ const Contact = () => {
               </div>
               <div className="form-field">
                 <label htmlFor="email" className="text-sm text-muted-foreground block mb-2">
-                  Your Email
+                  Seu Email
                 </label>
                 <input
                   type="email"
@@ -245,7 +245,7 @@ const Contact = () => {
               </div>
               <div className="form-field">
                 <label htmlFor="message" className="text-sm text-muted-foreground block mb-2">
-                  Message
+                  Mensagem
                 </label>
                 <textarea
                   id="message"
@@ -265,7 +265,7 @@ const Contact = () => {
                   'Sending...'
                 ) : (
                   <>
-                    Send Message
+                    Enviar Mensagem
                     <PaperPlaneTilt size={20} weight="light" />
                   </>
                 )}
