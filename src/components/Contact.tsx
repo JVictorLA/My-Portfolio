@@ -11,6 +11,7 @@ import {
   Phone
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
+import { sendEmail } from '@/lib/emailService';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,12 +73,39 @@ const Contact = () => {
       repeat: 1,
     });
 
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    toast.success('Message sent successfully!');
-    setIsSubmitting(false);
-    if (formRef.current) formRef.current.reset();
+    try {
+      const formData = new FormData(formRef.current!);
+      const emailData = {
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        message: formData.get('message') as string,
+      };
+
+      // Validate required fields
+      if (!emailData.name || !emailData.email || !emailData.message) {
+        throw new Error('Please fill in all fields');
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailData.email)) {
+        throw new Error('Please enter a valid email address');
+      }
+
+      // Send email
+      await sendEmail(emailData);
+      
+      toast.success('Message sent successfully! I\'ll get back to you soon.');
+      
+      // Reset form
+      if (formRef.current) formRef.current.reset();
+      
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred while sending your message.';
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -190,32 +218,38 @@ const Contact = () => {
           <form ref={formRef} onSubmit={handleSubmit} className="glass-card p-8">
             <div className="space-y-6">
               <div className="form-field">
-                <label className="text-sm text-muted-foreground block mb-2">
+                <label htmlFor="name" className="text-sm text-muted-foreground block mb-2">
                   Your Name
                 </label>
                 <input
                   type="text"
+                  id="name"
+                  name="name"
                   required
                   className="glass-input w-full"
                   placeholder="John Doe"
                 />
               </div>
               <div className="form-field">
-                <label className="text-sm text-muted-foreground block mb-2">
+                <label htmlFor="email" className="text-sm text-muted-foreground block mb-2">
                   Your Email
                 </label>
                 <input
                   type="email"
+                  id="email"
+                  name="email"
                   required
                   className="glass-input w-full"
                   placeholder="john@example.com"
                 />
               </div>
               <div className="form-field">
-                <label className="text-sm text-muted-foreground block mb-2">
+                <label htmlFor="message" className="text-sm text-muted-foreground block mb-2">
                   Message
                 </label>
                 <textarea
+                  id="message"
+                  name="message"
                   required
                   rows={5}
                   className="glass-input w-full resize-none"
