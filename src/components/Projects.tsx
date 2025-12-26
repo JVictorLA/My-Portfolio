@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+
 import { ArrowUpRight, Atom, Wind, FileJs, X } from '@phosphor-icons/react';
 
 import project1 from '@/assets/project-1.png';
@@ -75,7 +76,12 @@ const Projects = () => {
      BLOQUEIA SCROLL QUANDO MODAL ABRE
   =============================== */
   useEffect(() => {
-    document.body.style.overflow = selected ? 'hidden' : '';
+    if (selected) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
     return () => {
       document.body.style.overflow = '';
     };
@@ -121,14 +127,12 @@ const Projects = () => {
   }, []);
 
   /* ===============================
-     TILT DESKTOP (IMEDIATO)
+     TILT RÁPIDO (SEM DELAY)
   =============================== */
   const handleTilt = (
     e: React.MouseEvent<HTMLDivElement>,
     card: HTMLDivElement
   ) => {
-    if (window.innerWidth < 1024) return;
-
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -166,32 +170,26 @@ const Projects = () => {
 
   return (
     <section ref={sectionRef} id="projects" className="relative py-32">
-      {/* CONTAINER RESPONSIVO */}
-      <div className="mx-auto w-full px-4 lg:container lg:px-6">
+      <div className="container mx-auto px-6">
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="section-title">
             Meus <span className="text-gradient">Projetos</span>
           </h2>
         </div>
 
-        {/* CARDS */}
         <div
           ref={sliderRef}
           className="
-            flex gap-6 overflow-x-auto pb-8 px-2
-            snap-x snap-mandatory
-            lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0
+            flex gap-6 overflow-x-auto pb-8
+            lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible
           "
         >
           {projects.map((project) => (
             <div
               key={project.id}
               className="
-                project-card group cursor-pointer
-                min-w-[90%] sm:min-w-[75%] lg:min-w-0
-                rounded-2xl p-4
-                bg-white/5 backdrop-blur-md
-                border border-white/10
+                project-card group cursor-pointer rounded-2xl p-4
+                bg-white/5 backdrop-blur-md border border-white/10
                 transition-shadow duration-300
                 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]
               "
@@ -260,6 +258,7 @@ const Projects = () => {
 
             <div className="p-6 flex flex-col gap-6">
               <h2 className="text-2xl">{selected.title}</h2>
+
               <p className="text-muted-foreground">
                 {selected.description}
               </p>
