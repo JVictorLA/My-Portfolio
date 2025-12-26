@@ -1,10 +1,6 @@
-'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Draggable } from 'gsap/Draggable';
-import { InertiaPlugin } from 'gsap/InertiaPlugin';
 
 import { ArrowUpRight, Atom, Wind, FileJs, X } from '@phosphor-icons/react';
 
@@ -15,7 +11,7 @@ import project4 from '@/assets/project-4.png';
 import project5 from '@/assets/project-5.png';
 import project6 from '@/assets/project-6.png';
 
-gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -24,7 +20,7 @@ const projects = [
     description: 'Email platform for developers with React, Tailwind & Spline integration.',
     image: project1,
     tags: ['React', 'Tailwind', 'Spline'],
-    link: '#',
+    link: '/project-em-desenvolvimento',
   },
   {
     id: 2,
@@ -32,7 +28,7 @@ const projects = [
     description: 'Next-level gaming interface with immersive 3D elements.',
     image: project2,
     tags: ['React', 'Three.js', 'GSAP'],
-    link: '#',
+    link: 'https://seuprojeto2.com',
   },
   {
     id: 3,
@@ -40,7 +36,7 @@ const projects = [
     description: 'Creative developer portfolio featuring 3D animations.',
     image: project3,
     tags: ['HTML', 'CSS', 'JavaScript'],
-    link: '#',
+    link: 'https://seuprojeto3.com',
   },
   {
     id: 4,
@@ -48,15 +44,15 @@ const projects = [
     description: 'Modern gaming platform with dynamic visuals.',
     image: project4,
     tags: ['HTML', 'CSS', 'JavaScript'],
-    link: '#',
+    link: 'https://seuprojeto4.com',
   },
   {
     id: 5,
     title: 'Animation Tools',
     description: 'Fast & reliable web apps with smooth animations.',
     image: project5,
-    tags: ['React', 'GSAP'],
-    link: '#',
+    tags: ['React', 'GSAP', 'Framer'],
+    link: 'https://seuprojeto5.com',
   },
   {
     id: 6,
@@ -64,134 +60,86 @@ const projects = [
     description: 'Creative portfolio with cinematic interactions.',
     image: project6,
     tags: ['CSS', 'GSAP', 'JavaScript'],
-    link: '#',
+    link: 'https://seuprojeto6.com',
   },
 ];
 
-export default function Projects() {
+const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
+
   const [selected, setSelected] = useState<any>(null);
 
   /* ===============================
-     DESKTOP SCROLL ANIMATION
+     BLOQUEIA SCROLL QUANDO MODAL ABRE
   =============================== */
   useEffect(() => {
-    if (window.innerWidth < 1024) return;
+    document.body.style.overflow = selected ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selected]);
 
+  /* ===============================
+     ANIMAÇÕES DE ENTRADA
+  =============================== */
+  useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.project-card', {
-        opacity: 0,
-        y: 60,
-        scale: 0.95,
-        duration: 0.6,
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-        },
-      });
+      gsap.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 70%',
+          },
+        }
+      );
+
+      gsap.fromTo(
+        '.project-card',
+        { opacity: 0, y: 60, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: sliderRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   /* ===============================
-     MOBILE – STACK 3D
+     TILT DESKTOP (IMEDIATO)
   =============================== */
-  useEffect(() => {
-    if (window.innerWidth >= 1024) return;
-
-    const cards = gsap.utils.toArray<HTMLDivElement>('.project-card');
-
-    cards.forEach((card, i) => {
-      gsap.set(card, {
-        x: i * 14,
-        y: i * 10,
-        scale: 1 - i * 0.04,
-        zIndex: cards.length - i,
-        transformPerspective: 1200,
-      });
-    });
-  }, []);
-
-  /* ===============================
-     MOBILE – DRAG CARD (SEGURAR)
-  =============================== */
-  useEffect(() => {
-    if (window.innerWidth >= 1024) return;
-
-    const cards = gsap.utils.toArray<HTMLDivElement>('.project-card');
-
-    cards.forEach((card) => {
-      Draggable.create(card, {
-        type: 'x,y',
-        inertia: true,
-        onPress() {
-          gsap.to(card, {
-            scale: 1.06,
-            rotateZ: 2,
-            duration: 0.2,
-          });
-        },
-        onRelease() {
-          gsap.to(card, {
-            x: 0,
-            y: 0,
-            rotateZ: 0,
-            scale: 1,
-            duration: 0.7,
-            ease: 'elastic.out(1, 0.4)',
-          });
-        },
-      });
-    });
-  }, []);
-
-  /* ===============================
-     MOBILE – SWIPE STACK
-  =============================== */
-  useEffect(() => {
-    if (window.innerWidth >= 1024) return;
-
-    const cards = gsap.utils.toArray<HTMLDivElement>('.project-card');
-
-    Draggable.create(sliderRef.current!, {
-      type: 'x',
-      inertia: true,
-      bounds: {
-        minX: -(cards.length - 1) * 260,
-        maxX: 0,
-      },
-      onDrag() {
-        cards.forEach((card, i) => {
-          gsap.to(card, {
-            x: this.x * 0.4 + i * 14,
-            rotateY: this.x * 0.02,
-            duration: 0.2,
-          });
-        });
-      },
-    });
-  }, []);
-
-  /* ===============================
-     DESKTOP TILT
-  =============================== */
-  const handleTilt = (e: any, card: HTMLDivElement) => {
+  const handleTilt = (
+    e: React.MouseEvent<HTMLDivElement>,
+    card: HTMLDivElement
+  ) => {
     if (window.innerWidth < 1024) return;
 
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const rx = ((y / rect.height) - 0.5) * -30;
-    const ry = ((x / rect.width) - 0.5) * 30;
+    const rotateX = ((y / rect.height) - 0.5) * -35;
+    const rotateY = ((x / rect.width) - 0.5) * 35;
 
     card.style.transform = `
       perspective(1200px)
-      rotateX(${rx}deg)
-      rotateY(${ry}deg)
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
       scale(1.04)
     `;
   };
@@ -199,56 +147,82 @@ export default function Projects() {
   const resetTilt = (card: HTMLDivElement) => {
     card.style.transform = `
       perspective(1200px)
-      rotateX(0)
-      rotateY(0)
+      rotateX(0deg)
+      rotateY(0deg)
       scale(1)
     `;
   };
 
   const getTagIcon = (tag: string) => {
-    if (tag === 'React') return <Atom size={14} />;
-    if (tag === 'Tailwind') return <Wind size={14} />;
-    return <FileJs size={14} />;
+    switch (tag.toLowerCase()) {
+      case 'react':
+        return <Atom size={14} />;
+      case 'tailwind':
+        return <Wind size={14} />;
+      default:
+        return <FileJs size={14} />;
+    }
   };
 
   return (
-    <section ref={sectionRef} className="relative py-32">
+    <section ref={sectionRef} id="projects" className="relative py-32">
+      {/* CONTAINER RESPONSIVO */}
       <div className="mx-auto w-full px-4 lg:container lg:px-6">
-        <h2 className="text-center text-4xl mb-16">
-          Meus <span className="text-gradient">Projetos</span>
-        </h2>
+        <div ref={titleRef} className="text-center mb-16">
+          <h2 className="section-title">
+            Meus <span className="text-gradient">Projetos</span>
+          </h2>
+        </div>
 
+        {/* CARDS */}
         <div
           ref={sliderRef}
           className="
-            relative flex gap-6 overflow-hidden
-            lg:grid lg:grid-cols-3 lg:gap-8
+            flex gap-6 overflow-x-auto pb-8 px-2
+            snap-x snap-mandatory
+            lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0
           "
         >
           {projects.map((project) => (
             <div
               key={project.id}
               className="
-                project-card
-                min-w-[85%] lg:min-w-0
+                project-card group cursor-pointer
+                min-w-[90%] sm:min-w-[75%] lg:min-w-0
                 rounded-2xl p-4
                 bg-white/5 backdrop-blur-md
                 border border-white/10
-                touch-none
+                transition-shadow duration-300
+                hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]
               "
               onMouseMove={(e) => handleTilt(e, e.currentTarget)}
               onMouseLeave={(e) => resetTilt(e.currentTarget)}
               onClick={() => setSelected(project)}
             >
-              <div className="overflow-hidden rounded-xl mb-4 h-56">
+              <div className="relative overflow-hidden rounded-xl mb-4 h-56">
                 <img
                   src={project.image}
-                  className="w-full h-full object-cover"
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
+
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="
+                    absolute top-4 right-4 w-10 h-10 rounded-full
+                    bg-primary flex items-center justify-center
+                    opacity-0 group-hover:opacity-100 transition-all
+                  "
+                >
+                  <ArrowUpRight size={20} className="text-primary-foreground" />
+                </a>
               </div>
 
               <h3 className="text-xl mb-2">{project.title}</h3>
-              <p className="text-sm opacity-70 mb-4">
+              <p className="text-sm text-muted-foreground mb-4">
                 {project.description}
               </p>
 
@@ -256,7 +230,7 @@ export default function Projects() {
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs px-3 py-1 rounded-full border border-white/10 flex items-center gap-1"
+                    className="text-xs px-3 py-1 rounded-full border border-white/10"
                   >
                     {getTagIcon(tag)} {tag}
                   </span>
@@ -269,27 +243,54 @@ export default function Projects() {
 
       {/* MODAL */}
       {selected && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
-          <div className="bg-card rounded-2xl max-w-4xl w-full mx-4 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xl">
+          <div className="relative bg-card rounded-2xl max-w-4xl w-full mx-4 overflow-hidden">
             <button
-              className="absolute top-4 right-4"
               onClick={() => setSelected(null)}
+              className="absolute top-4 right-4 z-10"
             >
               <X size={24} />
             </button>
 
             <img
               src={selected.image}
-              className="w-full h-80 object-cover rounded-t-2xl"
+              alt={selected.title}
+              className="w-full h-80 object-cover"
             />
 
-            <div className="p-6">
-              <h2 className="text-2xl mb-2">{selected.title}</h2>
-              <p className="opacity-70">{selected.description}</p>
+            <div className="p-6 flex flex-col gap-6">
+              <h2 className="text-2xl">{selected.title}</h2>
+              <p className="text-muted-foreground">
+                {selected.description}
+              </p>
+
+              <div className="flex justify-between items-center flex-wrap gap-4">
+                <div className="flex gap-2 flex-wrap">
+                  {selected.tags.map((tag: string) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-3 py-1 rounded-full border border-white/10"
+                    >
+                      {getTagIcon(tag)} {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={selected.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-glow animate-glow-pulse"
+                >
+                  Abrir projeto
+                </a>
+              </div>
             </div>
           </div>
         </div>
       )}
     </section>
   );
-}
+};
+
+export default Projects;
