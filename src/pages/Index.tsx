@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import Preloader from '@/components/Preloader';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -15,7 +16,7 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Prevent scrolling during preloader
+    // Bloqueia scroll durante o preloader
     if (isLoading) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -28,13 +29,28 @@ const Index = () => {
   }, [isLoading]);
 
   const handlePreloaderComplete = () => {
+    // 🔥 FINALIZA LOADING
     setIsLoading(false);
 
-    // Animate main content in
+    // 🔥 GARANTE QUE COMEÇA NO TOPO
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant',
+    });
+
+    // 🔥 RECALCULA TODAS AS ANIMAÇÕES
+    ScrollTrigger.refresh();
+
+    // 🔥 ANIMA CONTEÚDO PRINCIPAL
     gsap.fromTo(
       '.main-content',
       { opacity: 0 },
-      { opacity: 1, duration: 0.8, ease: 'power3.out' }
+      {
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        clearProps: 'opacity',
+      }
     );
   };
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { GithubLogo, LinkedinLogo, TwitterLogo, Heart } from '@phosphor-icons/react';
+import { GithubLogo, LinkedinLogo, TwitterLogo, Heart, InstagramLogo } from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,10 +65,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
           <button onClick={scrollToTop} className="text-2xl font-light tracking-wider">
-            <span className="text-gradient font-semibold">M</span>
-            <span className="text-foreground">iladi</span>
-            <span className="text-gradient font-semibold">C</span>
-            <span className="text-foreground">ode</span>
+            <span className="text-gradient font-semibold">J</span>
+            <span className="text-foreground">oão</span>
+            <span className="text-gradient font-semibold">V</span>
+            <span className="text-foreground">ictor</span>
           </button>
 
           {/* Nav links */}
@@ -87,7 +87,7 @@ const Footer = () => {
           {/* Social links */}
           <div className="flex gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/JVictorLA"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
@@ -95,7 +95,7 @@ const Footer = () => {
               <GithubLogo size={20} weight="light" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/jo%C3%A3o-victor-lima-de-almeida-b0b56a321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
@@ -103,12 +103,12 @@ const Footer = () => {
               <LinkedinLogo size={20} weight="light" />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://www.instagram.com/_jvking.la77/?next=%2F"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
-              <TwitterLogo size={20} weight="light" />
+              <InstagramLogo size={20} weight="light" />
             </a>
           </div>
         </div>
@@ -118,7 +118,7 @@ const Footer = () => {
           <p className="text-muted-foreground text-sm font-light flex items-center justify-center gap-2">
             © 2025 Made with{' '}
             <Heart size={16} weight="fill" className="text-primary animate-pulse" />{' '}
-            by <span className="text-gradient">MiladiCode</span>
+            by <span className="text-gradient">João Victor</span>
           </p>
         </div>
       </div>

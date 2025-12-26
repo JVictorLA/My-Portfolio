@@ -8,7 +8,8 @@ import {
   PaperPlaneTilt,
   EnvelopeSimple,
   MapPin,
-  Phone
+  Phone,
+  InstagramLogo
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { sendEmail } from '@/lib/emailService';
@@ -175,7 +176,7 @@ const Contact = () => {
               <p className="text-sm text-muted-foreground mb-4">Follow Me</p>
               <div className="flex gap-4">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/JVictorLA"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="skill-icon !w-12 !h-12 group"
@@ -187,7 +188,7 @@ const Contact = () => {
                   />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/jo%C3%A3o-victor-lima-de-almeida-b0b56a321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="skill-icon !w-12 !h-12 group"
@@ -199,12 +200,12 @@ const Contact = () => {
                   />
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://www.instagram.com/_jvking.la77/?next=%2F"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="skill-icon !w-12 !h-12 group"
                 >
-                  <TwitterLogo
+                  <InstagramLogo
                     size={24}
                     weight="light"
                     className="text-muted-foreground group-hover:text-primary transition-colors"

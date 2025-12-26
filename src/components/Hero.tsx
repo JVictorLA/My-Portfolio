@@ -113,7 +113,7 @@ const Hero = () => {
               onClick={scrollToContact}
               className="btn-glow animate-glow-pulse"
             >
-              Hire Me
+              contrate-me
             </button>
           </div>
 
