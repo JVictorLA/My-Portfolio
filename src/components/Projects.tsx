@@ -43,32 +43,17 @@ const projects = [
     description: 'Landing page fictícia desenvolvida para a hamburgueria Burger Bloom, com foco em conversão, identidade visual forte e experiência do usuário. O projeto destaca cardápio, promoções e chamadas estratégicas para pedidos, utilizando um design moderno e responsivo.',
     image: project3,
     tags: ['HTML', 'CSS', 'JavaScript'],
-    link: 'https://seuprojeto3.com',
+    link: '/project-em-desenvolvimento',
   },
   {
     id: 4,
-    title: 'Gaming Website',
-    description: 'Modern gaming platform with dynamic visuals.',
+    title: 'Dev Barber',
+    description: 'Landing page fictícia para a barbearia Dev Barber, unindo estilo clássico e estética moderna. O projeto apresenta serviços, agendamento e identidade da marca de forma clara e responsiva, com foco em usabilidade, performance e presença digital profissional.',
     image: project4,
     tags: ['HTML', 'CSS', 'JavaScript'],
-    link: 'https://seuprojeto4.com',
+    link: '/project-em-desenvolvimento',
   },
-  {
-    id: 5,
-    title: 'Animation Tools',
-    description: 'Fast & reliable web apps with smooth animations.',
-    image: project5,
-    tags: ['React', 'GSAP', 'Framer'],
-    link: 'https://seuprojeto5.com',
-  },
-  {
-    id: 6,
-    title: 'Animated Portfolio',
-    description: 'Creative portfolio with cinematic interactions.',
-    image: project6,
-    tags: ['CSS', 'GSAP', 'JavaScript'],
-    link: 'https://seuprojeto6.com',
-  },
+ 
 ];
 
 const Projects = () => {
