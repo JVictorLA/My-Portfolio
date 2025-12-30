@@ -57,12 +57,12 @@ const Index = () => {
   return (
     <>
       {/* SEO */}
-      <title>Milad - Creative Web Developer | Portfolio</title>
+      <title>João Victor - Creative Web Developer | Portfolio</title>
       <meta
         name="description"
         content="Hi, I'm Milad - a skilled web developer crafting digital experiences through innovative design and cutting-edge technology. View my portfolio and let's connect."
       />
-
+      
       {/* Preloader */}
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
 
@@ -70,6 +70,7 @@ const Index = () => {
       <div className={`main-content ${isLoading ? 'opacity-0' : ''}`}>
         <Navbar />
         <main>
+        
           <Hero />
           <About />
           <Projects />
