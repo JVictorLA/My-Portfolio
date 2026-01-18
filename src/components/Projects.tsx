@@ -53,6 +53,14 @@ const projects = [
     tags: ['HTML', 'CSS', 'JavaScript'],
     link: '/project-em-desenvolvimento',
   },
+  {
+    id: 5,
+    title: 'Nexus Barbearia',
+    description: 'Landing page fictícia para a barbearia Nexus Barber, unindo estilo clássico e estética moderna. O projeto apresenta serviços, agendamento e identidade da marca de forma clara e responsiva, com foco em usabilidade, performance e presença digital profissional.',
+    image: project5,
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    link: 'https://chrome-quill.vercel.app/',
+  },
  
 ];
 
