@@ -51,7 +51,7 @@ const projects = [
     description: 'Landing page fictícia para a barbearia Dev Barber, unindo estilo clássico e estética moderna. O projeto apresenta serviços, agendamento e identidade da marca de forma clara e responsiva, com foco em usabilidade, performance e presença digital profissional.',
     image: project4,
     tags: ['HTML', 'CSS', 'JavaScript'],
-    link: '/project-em-desenvolvimento',
+    link: 'https://burger-bloom.vercel.app/',
   },
   {
     id: 5,
