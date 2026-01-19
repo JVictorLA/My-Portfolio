@@ -78,52 +78,84 @@ const projects = [
     tags: ['HTML', 'CSS', 'JavaScript'],
     link: 'https://aura-design-studio-eta.vercel.app/',
   },
+  
 ];
 
 const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const PROJECTS_PER_PAGE = 6;
+  const [projectPage, setProjectPage] = useState(0);
 
-   const filterRef = useRef<HTMLDivElement>(null);
+
+  const filterRef = useRef<HTMLDivElement>(null);
 
   const [selected, setSelected] = useState<any>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [filter, setFilter] = useState<'Tudo' | 'Landing Pages' | 'BOTs' | 'Sites'>('Tudo');
-const filters = ['Tudo', 'Landing Pages', 'BOTs', 'Sites'];
+  const filters = ['Tudo', 'Landing Pages', 'BOTs', 'Sites'];
 
-const FILTERS_PER_PAGE = 4;
+  const FILTERS_PER_PAGE = 4;
 
-const [filterPage, setFilterPage] = useState(0);
+  const [filterPage, setFilterPage] = useState(0);
 
-const totalPages = Math.ceil(filters.length / FILTERS_PER_PAGE);
+  const totalPages = Math.ceil(filters.length / FILTERS_PER_PAGE);
 
-const visibleFilters = filters.slice(
-  filterPage * FILTERS_PER_PAGE,
-  filterPage * FILTERS_PER_PAGE + FILTERS_PER_PAGE
-);
+  const visibleFilters = filters.slice(
+    filterPage * FILTERS_PER_PAGE,
+    filterPage * FILTERS_PER_PAGE + FILTERS_PER_PAGE
+  );
 
   const filteredProjects =
     filter === 'Tudo'
       ? projects
       : projects.filter(project => project.category === filter);
 
-  const handleFilterNav = (direction: 'left' | 'right') => {
-  if (isMobile) {
-    if (!filterRef.current) return;
+  const totalProjectPages = Math.ceil(
+    filteredProjects.length / PROJECTS_PER_PAGE
+  );
 
-    filterRef.current.scrollBy({
-      left: direction === 'left' ? -180 : 180,
-      behavior: 'smooth',
-    });
-  } else {
-    setFilterPage((prev) => {
-      if (direction === 'left') {
-        return prev === 0 ? totalPages - 1 : prev - 1;
+  const paginatedProjects = filteredProjects.slice(
+    projectPage * PROJECTS_PER_PAGE,
+    projectPage * PROJECTS_PER_PAGE + PROJECTS_PER_PAGE
+  );
+
+  useEffect(() => {
+    setProjectPage(0);
+  }, [filter]);
+  useEffect(() => {
+    if (isMobile) return;
+
+    gsap.fromTo(
+      '.project-card',
+      { x: 120, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power3.out',
       }
-      return prev === totalPages - 1 ? 0 : prev + 1;
-    });
-  }
-}; 
+    );
+  }, [projectPage, filter, isMobile]);
+
+  const handleFilterNav = (direction: 'left' | 'right') => {
+    if (isMobile) {
+      if (!filterRef.current) return;
+
+      filterRef.current.scrollBy({
+        left: direction === 'left' ? -180 : 180,
+        behavior: 'smooth',
+      });
+    } else {
+      setFilterPage((prev) => {
+        if (direction === 'left') {
+          return prev === 0 ? totalPages - 1 : prev - 1;
+        }
+        return prev === totalPages - 1 ? 0 : prev + 1;
+      });
+    }
+  };
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
     handleResize();
@@ -209,13 +241,13 @@ const visibleFilters = filters.slice(
           <h2 className="section-title">
             Meus <span className="text-gradient">Projetos</span>
           </h2>
-          
+
           <div className="relative mt-6 flex items-center justify-center gap-4">
 
-  {/* SETA ESQUERDA */}
-  <button
-  onClick={() => handleFilterNav('left')}
-  className="
+            {/* SETA ESQUERDA */}
+            <button
+              onClick={() => handleFilterNav('left')}
+              className="
     group
     w-10 h-10
     rounded-full
@@ -227,65 +259,63 @@ const visibleFilters = filters.slice(
     hover:scale-105
     active:scale-95
   "
->
-  <CaretLeft
-    size={18}
-    weight="bold"
-    className="text-white/70 group-hover:text-white transition"
-  />
-</button>
+            >
+              <CaretLeft
+                size={18}
+                weight="bold"
+                className="text-white/70 group-hover:text-white transition"
+              />
+            </button>
 
-  {/* FILTROS */}
-  {isMobile ? (
-    <div
-      ref={filterRef}
-      className="flex gap-3 overflow-hidden px-10"
-    >
-      {filters.map((item) => (
-        <button
-          key={item}
-          onClick={() => setFilter(item as any)}
-          className={`
+            {/* FILTROS */}
+            {isMobile ? (
+              <div
+                ref={filterRef}
+                className="flex gap-3 overflow-hidden px-10"
+              >
+                {filters.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => setFilter(item as any)}
+                    className={`
             flex-shrink-0 whitespace-nowrap
             px-4 py-2 rounded-full text-sm transition-all
             border backdrop-blur-md
-            ${
-              filter === item
-                ? 'bg-primary text-white border-primary'
-                : 'bg-white/5 text-muted-foreground border-white/10 hover:bg-white/10'
-            }
+            ${filter === item
+                        ? 'bg-primary text-white border-primary'
+                        : 'bg-white/5 text-muted-foreground border-white/10 hover:bg-white/10'
+                      }
           `}
-        >
-          {item}
-        </button>
-      ))}
-    </div>
-  ) : (
-    <div className="flex gap-3 justify-center min-w-[520px]">
-      {visibleFilters.map((item) => (
-        <button
-          key={item}
-          onClick={() => setFilter(item as any)}
-          className={`
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="flex gap-3 justify-center min-w-[520px]">
+                {visibleFilters.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => setFilter(item as any)}
+                    className={`
             px-4 py-2 rounded-full text-sm transition-all
             border backdrop-blur-md
-            ${
-              filter === item
-                ? 'bg-primary text-white border-primary'
-                : 'bg-white/5 text-muted-foreground border-white/10 hover:bg-white/10'
-            }
+            ${filter === item
+                        ? 'bg-primary text-white border-primary'
+                        : 'bg-white/5 text-muted-foreground border-white/10 hover:bg-white/10'
+                      }
           `}
-        >
-          {item}
-        </button>
-      ))}
-    </div>
-  )}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            )}
 
-  {/* SETA DIREITA */}
-  <button
-  onClick={() => handleFilterNav('right')}
-  className="
+            {/* SETA DIREITA */}
+            <button
+              onClick={() => handleFilterNav('right')}
+              className="
     group
     w-10 h-10
     rounded-full
@@ -297,14 +327,36 @@ const visibleFilters = filters.slice(
     hover:scale-105
     active:scale-95
   "
->
-  <CaretRight
-    size={18}
-    weight="bold"
-    className="text-white/70 group-hover:text-white transition"
-  />
-</button>
-</div>
+            >
+              <CaretRight
+                size={18}
+                weight="bold"
+                className="text-white/70 group-hover:text-white transition"
+              />
+            </button>
+          </div>
+          {/* PAGINAÇÃO DOS PROJETOS (DESKTOP) */}
+          {!isMobile && totalProjectPages > 1 && (
+            <div className="mt-6 mb-10 flex justify-center items-center gap-3">
+              {Array.from({ length: totalProjectPages }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setProjectPage(index)}
+                  className={`
+          min-w-[36px] h-9 px-3
+          rounded-full text-sm font-medium
+          transition-all duration-300
+          ${projectPage === index
+                      ? 'bg-primary text-white scale-110 shadow-lg'
+                      : 'bg-white/5 text-muted-foreground hover:bg-white/10'
+                    }
+        `}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          )}
 
         </div>
 
@@ -378,7 +430,8 @@ const visibleFilters = filters.slice(
 
           /* ================= DESKTOP (INALTERADO) ================= */
           <div className="flex gap-6 overflow-x-auto pb-8 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible">
-            {filteredProjects.map((project) => (
+            {paginatedProjects.map((project) => (
+
 
               <div
                 key={project.id}
@@ -444,7 +497,7 @@ const visibleFilters = filters.slice(
 
             <div className="p-6 flex flex-col gap-6">
               <h2 className="text-2xl">{selected.title}</h2>
-              
+
 
               <p className="text-muted-foreground">{selected.description}</p>
 
