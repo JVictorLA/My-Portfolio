@@ -48,7 +48,7 @@ const adjust = (
 ) => round(tMin + ((tMax - tMin) * (v - fMin)) / (fMax - fMin));
 
 const ProfileCard: React.FC<ProfileCardProps> = ({
-  avatarUrl = '/assets/profile.png',
+  avatarUrl = 'https://res.cloudinary.com/dapypkcbb/image/upload/v1768933727/profile_muojwo.png',
   miniAvatarUrl,
   iconUrl = 'https://img.icons8.com/sf-black-filled/64/source-code.png',
   grainUrl,
@@ -66,7 +66,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   name = 'João Victor',
   title = 'Frontend Developer',
   handle = 'joaovictor',
-  status = 'Online',
+ 
   contactText = 'Contact',
 
   showIcon = false,
