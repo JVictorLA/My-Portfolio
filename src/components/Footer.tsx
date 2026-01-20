@@ -1,7 +1,12 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { GithubLogo, LinkedinLogo, TwitterLogo, Heart, InstagramLogo } from '@phosphor-icons/react';
+import {
+  GithubLogo,
+  LinkedinLogo,
+  InstagramLogo,
+  Heart,
+} from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,12 +17,12 @@ const Footer = () => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.footer-content',
-        { opacity: 0, y: 40, filter: 'blur(10px)' },
+        { opacity: 0, y: 24, filter: 'blur(6px)' },
         {
           opacity: 1,
           y: 0,
           filter: 'blur(0px)',
-          duration: 0.8,
+          duration: 0.6,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: footerRef.current,
@@ -25,19 +30,6 @@ const Footer = () => {
           },
         }
       );
-
-      // Floating particles animation
-      gsap.to('.footer-particle', {
-        y: -30,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        stagger: {
-          each: 0.5,
-          from: 'random',
-        },
-      });
     }, footerRef);
 
     return () => ctx.revert();
@@ -48,36 +40,50 @@ const Footer = () => {
   };
 
   return (
-    <footer ref={footerRef} className="relative py-16 overflow-hidden border-t border-border">
+    <footer
+      ref={footerRef}
+      className="relative overflow-hidden py-12 border-t border-border
+                 bg-gradient-to-b from-background to-background/95"
+    >
+      {/* Decorative line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-60" />
+
       {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <div
           key={i}
-          className="footer-particle glow-orb w-8 h-8 opacity-30"
+          className="absolute footer-particle w-6 h-6 rounded-full bg-primary/30 blur-xl"
           style={{
-            left: `${10 + i * 15}%`,
-            bottom: `${20 + (i % 3) * 20}%`,
+            left: `${15 + i * 20}%`,
+            bottom: `${20 + (i % 2) * 20}%`,
           }}
         />
       ))}
 
       <div className="container mx-auto px-6 footer-content">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex flex-col items-center gap-4 text-center">
           {/* Logo */}
-          <button onClick={scrollToTop} className="text-2xl font-light tracking-wider">
+          <button
+            onClick={scrollToTop}
+            className="text-xl font-light tracking-widest hover:opacity-80 transition"
+          >
             <span className="text-gradient font-semibold">J</span>
             <span className="text-foreground">oão</span>
             <span className="text-gradient font-semibold">V</span>
             <span className="text-foreground">ictor</span>
           </button>
 
-          {/* Nav links */}
-          <nav className="flex flex-wrap justify-center gap-6">
+          {/* Navigation */}
+          <nav className="flex gap-6 mt-2">
             {['Home', 'About', 'Projects', 'Contact'].map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase()}`}
-                className="text-muted-foreground hover:text-foreground text-sm font-light transition-colors"
+                className="relative text-xs font-light text-muted-foreground transition
+                           hover:text-foreground
+                           after:absolute after:left-0 after:-bottom-0.5
+                           after:h-px after:w-0 after:bg-primary after:transition-all
+                           hover:after:w-full"
               >
                 {link}
               </a>
@@ -85,40 +91,39 @@ const Footer = () => {
           </nav>
 
           {/* Social links */}
-          <div className="flex gap-4">
-            <a
-              href="https://github.com/JVictorLA"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              <GithubLogo size={20} weight="light" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/jo%C3%A3o-victor-lima-de-almeida-b0b56a321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              <LinkedinLogo size={20} weight="light" />
-            </a>
-            <a
-              href="https://www.instagram.com/_jvking.la77/?next=%2F"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              <InstagramLogo size={20} weight="light" />
-            </a>
+          <div className="flex gap-3 mt-4">
+            {[
+              { href: 'https://github.com/JVictorLA', icon: <GithubLogo size={16} /> },
+              {
+                href: 'https://www.linkedin.com/in/jo%C3%A3o-victor-lima-de-almeida-b0b56a321',
+                icon: <LinkedinLogo size={16} />,
+              },
+              {
+                href: 'https://www.instagram.com/_jvking.la77/',
+                icon: <InstagramLogo size={16} />,
+              },
+            ].map((item, i) => (
+              <a
+                key={i}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 flex items-center justify-center rounded-full
+                           border border-border text-muted-foreground
+                           hover:text-primary hover:border-primary
+                           transition"
+              >
+                {item.icon}
+              </a>
+            ))}
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 pt-8 border-t border-border/50 text-center">
-          <p className="text-muted-foreground text-sm font-light flex items-center justify-center gap-2">
-            © 2025 Made with{' '}
-            <Heart size={16} weight="fill" className="text-primary animate-pulse" />{' '}
-            by <span className="text-gradient">João Victor</span>
+        <div className="mt-6 pt-4 border-t border-border/40 text-center">
+          <p className="text-[11px] text-muted-foreground flex items-center justify-center gap-1">
+            © 2025 João Victor • Made with
+            <Heart size={10} weight="fill" className="text-primary animate-pulse" />
           </p>
         </div>
       </div>
