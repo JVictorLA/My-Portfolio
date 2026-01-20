@@ -143,7 +143,7 @@ const Hero = () => {
                 handle="JVictorLA"
                 status="Online"
                 contactText="Contact Me"
-                avatarUrl="src/assets/profile.png"
+                avatarUrl="https://res.cloudinary.com/dapypkcbb/image/upload/v1768933727/profile_muojwo.png"
                 showUserInfo
                 enableTilt
                 behindGlowEnabled
