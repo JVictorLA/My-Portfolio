@@ -10,8 +10,8 @@ import { ArrowUpRight, Atom, Wind, FileJs, X } from '@phosphor-icons/react';
 import project1 from '@/assets/project-1.png';
 import project2 from '@/assets/project-2.png';
 import project3 from '@/assets/project-3.png';
-import project4 from '@/assets/project-4.png';
 import project5 from '@/assets/project-5.png';
+import project4 from '@/assets/project-4.png';
 import project6 from '@/assets/project-6.png';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -53,21 +53,20 @@ const projects = [
   },
   {
     id: 4,
-    title: 'Dev Barber',
-    category: 'Landing Pages',
-    description: 'Landing page fictícia para a barbearia Dev Barber, unindo estilo clássico e estética moderna. O projeto apresenta serviços, agendamento e identidade da marca de forma clara e responsiva, com foco em usabilidade, performance e presença digital profissional.',
-    image: project4,
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    link: '',
-  },
-  {
-    id: 5,
     title: 'Nexus Barbearia',
     category: 'Landing Pages',
     description: 'Nexus Barbearia é um projeto fictício de landing page desenvolvido para portfólio, inspirado em uma barbearia moderna e urbana. O conceito une identidade visual forte, tipografia marcante e foco na experiência do cliente, simulando uma presença digital profissional voltada para agendamentos e conversão.',
-    image: project5,
+    image: project4,
     tags: ['HTML', 'CSS', 'JavaScript'],
     link: 'https://chrome-quill.vercel.app/',
+  },{
+    id: 5,
+    title: 'Dev Barber',
+    category: 'Landing Pages',
+    description: 'Landing page fictícia para a barbearia Dev Barber, unindo estilo clássico e estética moderna. O projeto apresenta serviços, agendamento e identidade da marca de forma clara e responsiva, com foco em usabilidade, performance e presença digital profissional.',
+    image: project5,
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    link: '',
   },
   {
     id: 6,
